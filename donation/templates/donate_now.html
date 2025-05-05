@@ -1,0 +1,71 @@
+{% extends 'donor_base.html' %}
+
+{% block main %}
+    <div class="card shadow mt-2">
+        <div class="card-body">
+            <h5 class="p-2" style="border-bottom: 2px solid orange">Donate Now</h5>
+
+            <div class="container-fluid">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Donation Name <span style="color: red">(Note : If u select other, please mention details in description field)</span>
+                                </label>
+                                <select name="donationname" class="form-control" required>
+                                    <option value="Food Donation">Food Donation</option>
+                                    <option value="Cloth Donation">Cloth Donation</option>
+                                    <option value="Footwear Donation">Footwear Donation</option>
+                                    <option value="Books Donation">Books Donation</option>
+                                    <option value="Furniture Donation">Furniture Donation</option>
+                                    <option value="Vessels Donation">Vessels Donation</option>
+                                    <option value="Toy Donation">Toy Donation</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Donation Image</label>
+                                <input type="file" name="donationpic" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Donation Collection Address</label>
+                                <textarea name="collectionloc" placeholder="Enter Full Address " class="form-control" required></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Description(Special Note)</label>
+                                <textarea name="description" placeholder="Special Note for donation" class="form-control" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Donate Happiness" class="btn btn-danger px-3 m-2">
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+   {% if error == "no" %}
+        <script>
+            alert('Donation Collection Request Has Been Sent. We will contact you soon');
+            window.location = ('{% url 'donation_history' %}');
+        </script>
+    {% endif %}
+    {% if error == "yes" %}
+        <script>
+            alert('Something went wrong. Please try again...');
+        </script>
+    {% endif %}
+
+{% endblock %}
